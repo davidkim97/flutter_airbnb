@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_airbnb/constants.dart';
 import 'package:flutter_airbnb/size.dart';
+import 'package:flutter_airbnb/styles.dart';
 
 class HomeBodyPopularItem extends StatelessWidget {
   final id;
@@ -19,7 +21,7 @@ class HomeBodyPopularItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: gap_x1),
       child: Container(
-        // 2. 화면이 줄어들 때 너무 작게 줄어드는 것을 방지하기 위해 ㅚ소 제약조건을 잡아준다.
+        // 2. 화면이 줄어들 때 너무 작게 줄어드는 것을 방지하기 위해 최소 제약조건을 잡아준다.
         constraints: BoxConstraints(
           minWidth: 320,
         ),
@@ -36,18 +38,65 @@ class HomeBodyPopularItem extends StatelessWidget {
   }
 
   Widget _buildPopularIteImage() {
-    return SizedBox();
+    return Wrap(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.asset("assets/${popularList[id]}", fit: BoxFit.cover),
+        ),
+        SizedBox(height: gap_s),
+      ],
+    );
   }
 
   Widget _buildPopularItemStar() {
-    return SizedBox();
+    return Column(
+      children: [
+        Row(
+          children: [
+            Icon(Icons.star, color: kAccentColor),
+            Icon(Icons.star, color: kAccentColor),
+            Icon(Icons.star, color: kAccentColor),
+            Icon(Icons.star, color: kAccentColor),
+            Icon(Icons.star, color: kAccentColor),
+          ],
+        ),
+        SizedBox(height: gap_s),
+      ],
+    );
   }
 
   Widget _buildPopularItemComment() {
-    return SizedBox();
+    return Column(
+      children: [
+        Text(
+          "깔끔하고 다 갖춰져있어서 좋았어요:) 위치도 완전 좋아용 다들 여기 살고싶다구 ㅋㅋㅋㅋㅋㅋ 화장실도 3개에요!! 5명이서 씻는것도 전혀 불편함없이 좋았어요^^ 이불도 포근하고 좋습니당ㅎㅎ",
+          style: body1(),
+          maxLines: 3, // 2. 글자 라인을 제한할 수 있다.
+          overflow: TextOverflow.ellipsis, // 3. 글자가 3 라인을 벗어나면 ... 처리된다.
+        ),
+        SizedBox(height: gap_s),
+      ],
+    );
   }
 
   Widget _buildPopularItemUserInfo() {
-    return SizedBox();
+    return Row(
+      children: [
+        CircleAvatar(
+          backgroundImage: AssetImage("assets/p1.jpeg"),
+        ),
+        SizedBox(width: gap_s),
+        Column(
+          children: [
+            Text(
+              "David",
+              style: subtitle1(),
+            ),
+            Text("한국"),
+          ],
+        ),
+      ],
+    );
   }
 }
